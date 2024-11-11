@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_RESTFULL_Movies", "API_RESTFULL_Movies\API_RESTFULL_Movies.csproj", "{DB681258-B006-4D05-BFA5-1FC617D8C265}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controllers", "Controllers\Controllers.csproj", "{CC5A7547-DBC3-444D-BF78-A3F45B21B2D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{FF2A17A1-0E45-45B7-AA15-2525046F44E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{1C12A6AC-574C-49F3-B7C9-181F2742EE6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesMapper", "MoviesMapper\MoviesMapper.csproj", "{CDB9AE8A-834D-469B-A4A5-46A476BAE7E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{D8FBC7F6-5C3C-4A28-A622-F693C88CF0C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB681258-B006-4D05-BFA5-1FC617D8C265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB681258-B006-4D05-BFA5-1FC617D8C265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB681258-B006-4D05-BFA5-1FC617D8C265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB681258-B006-4D05-BFA5-1FC617D8C265}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5A7547-DBC3-444D-BF78-A3F45B21B2D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5A7547-DBC3-444D-BF78-A3F45B21B2D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5A7547-DBC3-444D-BF78-A3F45B21B2D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5A7547-DBC3-444D-BF78-A3F45B21B2D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF2A17A1-0E45-45B7-AA15-2525046F44E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF2A17A1-0E45-45B7-AA15-2525046F44E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF2A17A1-0E45-45B7-AA15-2525046F44E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2A17A1-0E45-45B7-AA15-2525046F44E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C12A6AC-574C-49F3-B7C9-181F2742EE6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C12A6AC-574C-49F3-B7C9-181F2742EE6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C12A6AC-574C-49F3-B7C9-181F2742EE6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C12A6AC-574C-49F3-B7C9-181F2742EE6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDB9AE8A-834D-469B-A4A5-46A476BAE7E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDB9AE8A-834D-469B-A4A5-46A476BAE7E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDB9AE8A-834D-469B-A4A5-46A476BAE7E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDB9AE8A-834D-469B-A4A5-46A476BAE7E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8FBC7F6-5C3C-4A28-A622-F693C88CF0C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8FBC7F6-5C3C-4A28-A622-F693C88CF0C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8FBC7F6-5C3C-4A28-A622-F693C88CF0C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8FBC7F6-5C3C-4A28-A622-F693C88CF0C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F6BE9D45-B84B-463E-A9A3-EB989F917802}
+	EndGlobalSection
+EndGlobal
