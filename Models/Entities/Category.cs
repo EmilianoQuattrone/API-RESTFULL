@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Models
+namespace Models.Entities
 {
     public class Category
     {
         // Este decorador indica al campo que va hacer una PK y autoincremental.
-        [Key] 
+        [Key]
         public int Id { get; set; }
 
         [Required]
