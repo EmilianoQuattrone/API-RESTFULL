@@ -3,9 +3,9 @@ using Models.Entities;
 
 namespace Data.Context
 {
-    public class AplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public AplicationDbContext(DbContextOptions<AplicationDbContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
         // Crear los modelos o las entidades.
