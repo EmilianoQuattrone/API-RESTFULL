@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesMapper", "MoviesMapper\MoviesMapper.csproj", "{CDB9AE8A-834D-469B-A4A5-46A476BAE7E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{D8FBC7F6-5C3C-4A28-A622-F693C88CF0C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryPattern", "Repository\RepositoryPattern.csproj", "{D8FBC7F6-5C3C-4A28-A622-F693C88CF0C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

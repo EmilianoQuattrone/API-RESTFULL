@@ -9,6 +9,6 @@ namespace Data.Context
             : base(options) { }
 
         // Crear los modelos o las entidades.
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Category> Category { get; set; }
     }
 }
