@@ -18,38 +18,38 @@ namespace RepositoryPattern.Repository
         {
             DateTime TodayDate = DateTime.Now;
             category.CreationDate = TodayDate;
-            _applicationDbContext.Category.Add(category);
+            _applicationDbContext.Categories.Add(category);
 
             return Save();
         }
 
         public bool DeleteCategory(Category category)
         {
-            _applicationDbContext.Category.Remove(category);
+            _applicationDbContext.Categories.Remove(category);
             return Save();
         }
 
         public bool ExistCategory(int id)
         {
-            return _applicationDbContext.Category.Any(c => c.Id == id);
+            return _applicationDbContext.Categories.Any(c => c.Id == id);
         }
 
         public bool ExistCategory(string nameCategory)
         {
             bool result;
-            result = _applicationDbContext.Category.Any(c =>
+            result = _applicationDbContext.Categories.Any(c =>
                                           c.NameCategory.ToLower().Trim() == nameCategory);
             return result;
         }
 
         public ICollection<Category> GetCategories()
         {
-            return _applicationDbContext.Category.OrderBy(c => c.NameCategory).ToList();
+            return _applicationDbContext.Categories.OrderBy(c => c.NameCategory).ToList();
         }
 
         public Category GetCategory(int id)
         {
-            return _applicationDbContext.Category.FirstOrDefault(c =>
+            return _applicationDbContext.Categories.FirstOrDefault(c =>
             c.Id == id);
         }
 
@@ -62,7 +62,7 @@ namespace RepositoryPattern.Repository
         {
             DateTime TodayDate = DateTime.Now;
             category.CreationDate = TodayDate;
-            _applicationDbContext.Category.Update(category);
+            _applicationDbContext.Categories.Update(category);
 
             return Save();
         }
