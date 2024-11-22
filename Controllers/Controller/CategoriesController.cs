@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models.DTOs;
+using Models.DTOs.Category;
 using Models.Entities;
 using Repository.IRepository;
 
