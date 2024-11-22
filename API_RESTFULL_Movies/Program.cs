@@ -2,8 +2,8 @@ using AutoMapper;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using MoviesMapper.Mapper;
-using Repository.IRepository;
-using RepositoryPattern.Repository;
+using RepositoryPattern.IRepository.Interface.ICategory;
+using RepositoryPattern.Repository.Category;
 
 var builder = WebApplication.CreateBuilder(args);
 

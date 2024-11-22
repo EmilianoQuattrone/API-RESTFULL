@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Category;
 using Models.Entities;
-using Repository.IRepository;
+using RepositoryPattern.IRepository.Interface.ICategory;
 
 namespace Controllers.Controller
 {

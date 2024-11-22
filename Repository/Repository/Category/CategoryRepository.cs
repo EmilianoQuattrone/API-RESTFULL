@@ -1,8 +1,7 @@
 ﻿using Data.Context;
-using Models.Entities;
-using Repository.IRepository;
+using RepositoryPattern.IRepository.Interface.ICategory;
 
-namespace RepositoryPattern.Repository
+namespace RepositoryPattern.Repository.Category
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -14,7 +13,7 @@ namespace RepositoryPattern.Repository
             _applicationDbContext = applicationDbContext;
         }
 
-        public bool CreateCategory(Category category)
+        public bool CreateCategory(Models.Entities.Category category)
         {
             DateTime TodayDate = DateTime.Now;
             category.CreationDate = TodayDate;
@@ -23,7 +22,7 @@ namespace RepositoryPattern.Repository
             return Save();
         }
 
-        public bool DeleteCategory(Category category)
+        public bool DeleteCategory(Models.Entities.Category category)
         {
             _applicationDbContext.Categories.Remove(category);
             return Save();
@@ -42,12 +41,12 @@ namespace RepositoryPattern.Repository
             return result;
         }
 
-        public ICollection<Category> GetCategories()
+        public ICollection<Models.Entities.Category> GetCategories()
         {
             return _applicationDbContext.Categories.OrderBy(c => c.NameCategory).ToList();
         }
 
-        public Category GetCategory(int id)
+        public Models.Entities.Category GetCategory(int id)
         {
             return _applicationDbContext.Categories.FirstOrDefault(c =>
             c.Id == id);
@@ -58,7 +57,7 @@ namespace RepositoryPattern.Repository
             return _applicationDbContext.SaveChanges() >= 0 ? true : false;
         }
 
-        public bool UpdateCategory(Category category)
+        public bool UpdateCategory(Models.Entities.Category category)
         {
             DateTime TodayDate = DateTime.Now;
             category.CreationDate = TodayDate;
