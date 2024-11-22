@@ -8,7 +8,8 @@ namespace Data.Context
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
-        // Crear los modelos o las entidades.
+        // Crear los modelos o las entidades, El nombre en plural, que se vera en sql server.
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Movie> Movies { get; set; }
     }
 }
