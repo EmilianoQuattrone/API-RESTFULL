@@ -16,9 +16,9 @@ namespace Models.DTOs.Movie
 
         public int Duration { get; set; }
 
-        public enum TypeClassification { Siete, Trece, Dieciocho }
+        public enum CreateTypeClassification { Siete, Trece, Dieciocho }
 
-        public TypeClassification Clasification { get; set; }
+        public CreateTypeClassification Clasification { get; set; }
 
         public int categoryId { get; set; }
     }

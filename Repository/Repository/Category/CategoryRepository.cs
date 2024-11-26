@@ -61,7 +61,16 @@ namespace RepositoryPattern.Repository.Category
         {
             DateTime TodayDate = DateTime.Now;
             category.CreationDate = TodayDate;
-            _applicationDbContext.Categories.Update(category);
+            Models.Entities.Category categoryExists = _applicationDbContext.Categories.Find(category.Id);
+
+            if (categoryExists != null)
+            {
+                _applicationDbContext.Entry(categoryExists).CurrentValues.SetValues(category);
+            }
+            else
+            {
+                _applicationDbContext.Categories.Update(category);
+            }
 
             return Save();
         }

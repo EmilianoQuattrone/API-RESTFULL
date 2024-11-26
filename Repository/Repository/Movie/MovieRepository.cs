@@ -68,7 +68,16 @@ namespace RepositoryPattern.Repository.Movie
         {
             DateTime TodayDate = DateTime.Now;
             movie.CreationDate = TodayDate;
-            _applicationDbContext.Movies.Update(movie);
+            Models.Entities.Movie movieExists = _applicationDbContext.Movies.Find(movie.Id);
+
+            if (movieExists != null)
+            {
+                _applicationDbContext.Entry(movieExists).CurrentValues.SetValues(movie);
+            }
+            else
+            {
+                _applicationDbContext.Movies.Update(movie);
+            }
 
             return Save();
         }
