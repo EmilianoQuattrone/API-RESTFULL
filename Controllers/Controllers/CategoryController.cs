@@ -3,18 +3,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Category;
 using Models.Entities;
-using RepositoryPattern.IRepository.Interface.ICategory;
+using RepositoryPattern.IRepository.Interfaces.ICategory;
 
-namespace Controllers.Controller
+namespace Controller.Controllers
 {
     [Route("api/categories")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
 
-        public CategoriesController(ICategoryRepository categoryRepository,
+        public CategoryController(ICategoryRepository categoryRepository,
                                   IMapper mapper)
         {
             _categoryRepository = categoryRepository;
@@ -53,7 +53,7 @@ namespace Controllers.Controller
                 return NotFound();
 
             CategoryDto categoryDto = _mapper.Map<CategoryDto>(category);
-            
+
             return Ok(categoryDto);
         }
 
@@ -85,10 +85,10 @@ namespace Controllers.Controller
                 return StatusCode(404, ModelState);
             }
 
-            return CreatedAtRoute("GetCategory", new 
+            return CreatedAtRoute("GetCategory", new
             {
                 categoryId = createCategory.Id
-            },  createCategory);
+            }, createCategory);
         }
 
         // HttpPatch (Recomendado usar) nos permite actualizar un campo de un registro.

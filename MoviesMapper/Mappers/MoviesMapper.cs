@@ -3,11 +3,11 @@ using Models.DTOs.Category;
 using Models.DTOs.Movie;
 using Models.Entities;
 
-namespace MoviesMapper.Mapper
+namespace MoviesMapper.Mappers
 {
-    public class Movies : Profile
+    public class MoviesMapper : Profile
     {
-        public Movies()
+        public MoviesMapper()
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Category, CreateCategoryDto>().ReverseMap();

@@ -1,6 +1,6 @@
 ﻿using Data.Context;
 using Microsoft.EntityFrameworkCore;
-using RepositoryPattern.IRepository.Interface.IMovie;
+using RepositoryPattern.IRepository.Interfaces.IMovie;
 
 namespace RepositoryPattern.Repository.Movie
 {

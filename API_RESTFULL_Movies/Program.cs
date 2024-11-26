@@ -1,8 +1,7 @@
 using AutoMapper;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
-using MoviesMapper.Mapper;
-using RepositoryPattern.IRepository.Interface.ICategory;
+using RepositoryPattern.IRepository.Interfaces.ICategory;
 using RepositoryPattern.Repository.Category;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +18,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 // Agregar AutoMapper
 MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>
 {
-    cfg.AddProfile(new Movies());
+    cfg.AddProfile(new MoviesMapper.Mappers.MoviesMapper());
 });
 
 IMapper mapper = mapperConfig.CreateMapper();

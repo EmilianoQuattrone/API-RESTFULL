@@ -5,13 +5,13 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_RESTFULL_Movies", "API_RESTFULL_Movies\API_RESTFULL_Movies.csproj", "{DB681258-B006-4D05-BFA5-1FC617D8C265}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controllers", "Controllers\Controllers.csproj", "{CC5A7547-DBC3-444D-BF78-A3F45B21B2D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controller", "Controllers\Controller.csproj", "{CC5A7547-DBC3-444D-BF78-A3F45B21B2D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{FF2A17A1-0E45-45B7-AA15-2525046F44E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{1C12A6AC-574C-49F3-B7C9-181F2742EE6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesMapper", "MoviesMapper\MoviesMapper.csproj", "{CDB9AE8A-834D-469B-A4A5-46A476BAE7E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieMapper", "MoviesMapper\MovieMapper.csproj", "{CDB9AE8A-834D-469B-A4A5-46A476BAE7E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryPattern", "Repository\RepositoryPattern.csproj", "{D8FBC7F6-5C3C-4A28-A622-F693C88CF0C9}"
 EndProject

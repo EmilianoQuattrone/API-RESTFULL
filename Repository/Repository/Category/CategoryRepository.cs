@@ -1,5 +1,5 @@
 ﻿using Data.Context;
-using RepositoryPattern.IRepository.Interface.ICategory;
+using RepositoryPattern.IRepository.Interfaces.ICategory;
 
 namespace RepositoryPattern.Repository.Category
 {

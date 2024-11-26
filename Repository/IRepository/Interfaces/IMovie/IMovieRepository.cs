@@ -1,6 +1,6 @@
 ﻿using Models.Entities;
 
-namespace RepositoryPattern.IRepository.Interface.IMovie
+namespace RepositoryPattern.IRepository.Interfaces.IMovie
 {
     public interface IMovieRepository
     {

@@ -1,6 +1,6 @@
 ﻿using Models.Entities;
 
-namespace RepositoryPattern.IRepository.Interface.ICategory
+namespace RepositoryPattern.IRepository.Interfaces.ICategory
 {
     public interface ICategoryRepository
     {
