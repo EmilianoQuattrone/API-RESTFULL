@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Movie;
 using Models.Entities;
 using RepositoryPattern.IRepository.Interfaces.IMovie;
+using Service.IServices;
 
 namespace Controller.Controllers
 {
@@ -11,13 +12,11 @@ namespace Controller.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-        private readonly IMovieRepository _movieRepository;
-        private readonly IMapper _mapper;
+        private readonly IMovieService _movieService;
 
-        public MovieController(IMovieRepository movieRepository, IMapper mapper)
+        public MovieController(IMovieService movieService, IMovieRepository movieRepository, IMapper mapper)
         {
-            _movieRepository = movieRepository;
-            _mapper = mapper;
+            _movieService = movieService;
         }
 
         [HttpGet]
@@ -25,17 +24,16 @@ namespace Controller.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetMovies()
         {
-            // Lista con datos de Movie de db.
-            ICollection<Movie> listMovie = _movieRepository.GetMovies();
-
-            List<MovieDto> listMovieDto = new List<MovieDto>();
-
-            foreach (Movie item in listMovie)
+            try
             {
-                listMovieDto.Add(_mapper.Map<MovieDto>(item));
+                List<MovieDto> movies = _movieService.GetAllMovies();
+                return Ok(movies);
             }
-
-            return Ok(listMovieDto);
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { 
+                    message = ex.Message });
+            }
         }
 
         [HttpGet("{movieId:int}", Name = "GetMovie")]
@@ -45,15 +43,18 @@ namespace Controller.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetMovie(int movieId)
         {
-            // Lista con datos de Movie de db.
-            Movie movie = _movieRepository.GetMovie(movieId);
-
-            if (movie == null)
-                return NotFound();
-
-            MovieDto movieDto = _mapper.Map<MovieDto>(movie);
-
-            return Ok(movieDto);
+            try
+            {
+                Movie movie = _movieService.GetMovie(movieId);
+                return Ok(movie);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    message = ex.Message
+                });
+            }
         }
 
         [HttpPost]
@@ -64,30 +65,28 @@ namespace Controller.Controllers
 
         public IActionResult CreateMovie([FromBody] CreateMovieDto createMovieDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            if (createMovieDto == null)
-                return BadRequest(ModelState);
-
-            if (_movieRepository.ExistMovie(createMovieDto.NameMovie))
+            try
             {
-                ModelState.AddModelError("", "La película existe.");
-                return StatusCode(404, ModelState);
+                MovieDto createdMovie = _movieService.CreateMovie(createMovieDto);
+                return CreatedAtRoute("GetMovie", new 
+                { 
+                    movieId = createdMovie.Id 
+                }, createdMovie);
             }
-
-            Movie createMovie = _mapper.Map<Movie>(createMovieDto);
-
-            if (!_movieRepository.CreateMovie(createMovie))
+            catch (ArgumentNullException)
             {
-                ModelState.AddModelError("", $"Hubo un error al guardar el registro {createMovie.NameMovie}");
-                return StatusCode(404, ModelState);
+                return BadRequest("La entrada no puede ser nula.");
             }
-
-            return CreatedAtRoute("GetMovie", new
+            catch (InvalidOperationException ex)
             {
-                movieId = createMovie.Id
-            }, createMovie);
+                ModelState.AddModelError("", ex.Message);
+                return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return StatusCode(500, ModelState);
+            }
         }
 
         [HttpPatch("{movieId:int}", Name = "UpdateMovie")]
@@ -97,21 +96,27 @@ namespace Controller.Controllers
 
         public IActionResult UpdateMovie(int movieId, [FromBody] MovieDto movieDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            if (movieDto == null || movieId != movieDto.Id)
-                return BadRequest(ModelState);
-
-            Movie createMovie = _mapper.Map<Movie>(movieDto);
-
-            if (!_movieRepository.UpdateMovie(createMovie))
+            try
             {
-                ModelState.AddModelError("", $"Hubo un error al actualizar película {createMovie.NameMovie}");
-                return StatusCode(404, ModelState);
-            }
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                _movieService.UpdateMovie(movieId, movieDto);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (ArgumentNullException)
+            {
+                return BadRequest("Los datos de la película no pueden ser nulos.");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, 
+                    new { message = ex.Message });
+            }
         }
 
         [HttpDelete("{movieId:int}", Name = "DeleteMovie")]
@@ -122,18 +127,20 @@ namespace Controller.Controllers
 
         public IActionResult DeleteMovie(int movieId)
         {
-            if (!_movieRepository.ExistMovie(movieId))
-                return NotFound();
-
-            Movie deleteMovie = _movieRepository.GetMovie(movieId);
-
-            if (!_movieRepository.DeleteMovie(deleteMovie))
+            try
             {
-                ModelState.AddModelError("", $"Hubo un error al borrar película {deleteMovie.NameMovie}");
-                return StatusCode(404, ModelState);
+                _movieService.DeleteMovie(movieId);
+                return NoContent();
             }
-
-            return NoContent();
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new 
+                { message = ex.Message });
+            }
         }
     }
 }

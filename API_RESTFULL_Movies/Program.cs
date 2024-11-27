@@ -5,6 +5,8 @@ using RepositoryPattern.IRepository.Interfaces.ICategory;
 using RepositoryPattern.IRepository.Interfaces.IMovie;
 using RepositoryPattern.Repository.Category;
 using RepositoryPattern.Repository.Movie;
+using Service.IServices;
+using Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Agregamos los Repositorios
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 // Agregar AutoMapper
 MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>
