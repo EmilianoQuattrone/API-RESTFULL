@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Category;
 using Models.Entities;
-using RepositoryPattern.IRepository.Interfaces.ICategory;
+using Service.IServices;
 
 namespace Controller.Controllers
 {
@@ -11,14 +10,11 @@ namespace Controller.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository;
-        private readonly IMapper _mapper;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryRepository categoryRepository,
-                                  IMapper mapper)
+        public CategoryController(ICategoryService categoryService)
         {
-            _categoryRepository = categoryRepository;
-            _mapper = mapper;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -26,17 +22,18 @@ namespace Controller.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetCategories()
         {
-            // Lista con datos de Category de db.
-            ICollection<Category> listCategory = _categoryRepository.GetCategories();
-
-            List<CategoryDto> listCategoryDto = new List<CategoryDto>();
-
-            foreach (Category item in listCategory)
+            try
             {
-                listCategoryDto.Add(_mapper.Map<CategoryDto>(item));
+                List<CategoryDto> categories = _categoryService.GetAllCategories();
+                return Ok(categories);
             }
-
-            return Ok(listCategoryDto);
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    message = ex.Message
+                });
+            }
         }
 
         [HttpGet("{categoryId:int}", Name = "GetCategory")]
@@ -46,15 +43,18 @@ namespace Controller.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetCategory(int categoryId)
         {
-            // Lista con datos de Category de db.
-            Category category = _categoryRepository.GetCategory(categoryId);
-
-            if (category == null)
-                return NotFound();
-
-            CategoryDto categoryDto = _mapper.Map<CategoryDto>(category);
-
-            return Ok(categoryDto);
+            try
+            {
+                Category category = _categoryService.GetCategory(categoryId);
+                return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    message = ex.Message
+                });
+            }
         }
 
         [HttpPost]
@@ -66,30 +66,29 @@ namespace Controller.Controllers
 
         public IActionResult CreateCategory([FromBody] CreateCategoryDto createCategoryDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            if (createCategoryDto == null)
-                return BadRequest(ModelState);
-
-            if (_categoryRepository.ExistCategory(createCategoryDto.NameCategory))
+            try
             {
-                ModelState.AddModelError("", "La categoría existe.");
-                return StatusCode(404, ModelState);
+                CategoryDto createdCategory = _categoryService.CreateCategory(createCategoryDto);
+
+                return CreatedAtRoute("GetCategory", new
+                {
+                    categoryId = createdCategory.Id,
+                }, createdCategory);
             }
-
-            Category createCategory = _mapper.Map<Category>(createCategoryDto);
-
-            if (!_categoryRepository.CreateCategory(createCategory))
+            catch (ArgumentNullException)
             {
-                ModelState.AddModelError("", $"Hubo un error al guardar el registro {createCategory.NameCategory}");
-                return StatusCode(404, ModelState);
+                return BadRequest("La entrada no puede ser nula.");
             }
-
-            return CreatedAtRoute("GetCategory", new
+            catch (InvalidOperationException ex)
             {
-                categoryId = createCategory.Id
-            }, createCategory);
+                ModelState.AddModelError("", ex.Message);
+                return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return StatusCode(500, ModelState);
+            }
         }
 
         // HttpPatch (Recomendado usar) nos permite actualizar un campo de un registro.
@@ -100,21 +99,27 @@ namespace Controller.Controllers
 
         public IActionResult UpdateCategory(int categoryId, [FromBody] CategoryDto categoryDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            if (categoryDto == null || categoryId != categoryDto.Id)
-                return BadRequest(ModelState);
-
-            Category createCategory = _mapper.Map<Category>(categoryDto);
-
-            if (!_categoryRepository.UpdateCategory(createCategory))
+            try
             {
-                ModelState.AddModelError("", $"Hubo un error al actualizar categoría {createCategory.NameCategory}");
-                return StatusCode(404, ModelState);
-            }
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                _categoryService.UpdateCategory(categoryId, categoryDto);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (ArgumentNullException)
+            {
+                return BadRequest("Los datos de la película no pueden ser nulos.");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { message = ex.Message });
+            }
         }
 
         /*
@@ -131,18 +136,20 @@ namespace Controller.Controllers
 
         public IActionResult DeleteCategory(int categoryId)
         {
-            if (!_categoryRepository.ExistCategory(categoryId))
-                return NotFound();
-
-            Category deleteCategory = _categoryRepository.GetCategory(categoryId);
-
-            if (!_categoryRepository.DeleteCategory(deleteCategory))
+            try
             {
-                ModelState.AddModelError("", $"Hubo un error al borrar categoría {deleteCategory.NameCategory}");
-                return StatusCode(404, ModelState);
+                _categoryService.DeleteCategory(categoryId);
+                return NoContent();
             }
-
-            return NoContent();
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                { message = ex.Message });
+            }
         }
     }
 }

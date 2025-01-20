@@ -89,7 +89,7 @@ namespace Service.Services
                 throw new KeyNotFoundException($"La película con ID {movieId} " +
                                                $"no se pudo encontrar para eliminar.");
 
-            // Intentar eliminar la película
+            // Intentar eliminar la película.
             if (!_movieRepository.DeleteMovie(movieToDelete))
                 throw new Exception($"Hubo un error al borrar la película: " +
                                     $"{movieToDelete.NameMovie}");

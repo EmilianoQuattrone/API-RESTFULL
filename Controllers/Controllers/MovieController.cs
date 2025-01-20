@@ -68,6 +68,7 @@ namespace Controller.Controllers
             try
             {
                 MovieDto createdMovie = _movieService.CreateMovie(createMovieDto);
+
                 return CreatedAtRoute("GetMovie", new 
                 { 
                     movieId = createdMovie.Id 
