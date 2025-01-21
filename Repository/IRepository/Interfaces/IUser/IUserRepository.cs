@@ -1,10 +1,5 @@
 ﻿using Models.DTOs.User;
 using Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepositoryPattern.IRepository.Interfaces.IUser
 {
@@ -18,6 +13,6 @@ namespace RepositoryPattern.IRepository.Interfaces.IUser
 
         Task<UserResponseDto> Login(UserLoginDto userLoginDto);
 
-        Task<UserDataDto> Register(UserRegisterDto userRegisterDto);
+        Task<User> Register(UserRegisterDto userRegisterDto);
     }
 }

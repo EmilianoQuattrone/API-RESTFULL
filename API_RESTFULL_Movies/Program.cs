@@ -3,8 +3,10 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using RepositoryPattern.IRepository.Interfaces.ICategory;
 using RepositoryPattern.IRepository.Interfaces.IMovie;
+using RepositoryPattern.IRepository.Interfaces.IUser;
 using RepositoryPattern.Repository.Category;
 using RepositoryPattern.Repository.Movie;
+using RepositoryPattern.Repository.User;
 using Service.IServices;
 using Service.Services;
 
@@ -19,8 +21,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Agregamos los Repositorios
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Agregar AutoMapper
 MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>

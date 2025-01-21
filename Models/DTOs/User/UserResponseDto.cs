@@ -2,7 +2,7 @@
 {
     public class UserResponseDto
     {
-        public UserDataDto User { get; set; }
+        public Models.Entities.User User { get; set; }
 
         public string Rol { get; set; }
 

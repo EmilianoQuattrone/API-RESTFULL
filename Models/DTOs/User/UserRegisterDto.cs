@@ -12,5 +12,7 @@ namespace Models.DTOs.User
 
         [Required(ErrorMessage = "Password es obligatorio.")]
         public string Password { get; set; }
+
+        public string Rol { get; set; }
     }
 }
