@@ -43,5 +43,25 @@ namespace Service.Services
 
             return user;
         }
+
+        public bool IsUniqueUser(string user)
+        {
+            bool existUser = _userRepository.IsUniqueUser(user);
+
+            if (existUser == false)
+                throw new InvalidOperationException("No se encontro el usuario.");
+
+            return existUser;
+        }
+
+        public Task<UserResponseDto> Login(UserLoginDto userLoginDto)
+        {
+            return _userRepository.Login(userLoginDto);
+        }
+
+        public Task<User> Register(UserRegisterDto userRegisterDto)
+        {
+            return _userRepository.Register(userRegisterDto);
+        }
     }
 }
