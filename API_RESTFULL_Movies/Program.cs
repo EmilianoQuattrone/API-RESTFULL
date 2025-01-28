@@ -32,6 +32,11 @@ MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>
     cfg.AddProfile(new MoviesMapper.Mappers.MoviesMapper());
 });
 
+// CORS
+builder.Services.AddCors(c => c.AddPolicy("PoliticaCors", build => {
+    build.WithOrigins("https://localhost:7145").AllowAnyMethod().AllowAnyHeader();
+}));
+
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
@@ -49,6 +54,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Soporte CORS
+
+app.UseCors("PoliticaCors");
 
 app.UseAuthorization();
 
