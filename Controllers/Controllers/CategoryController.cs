@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Category;
 using Models.Entities;
@@ -6,6 +7,7 @@ using Service.IServices;
 
 namespace Controller.Controllers
 {
+    [Authorize]
     [Route("api/categories")]
     [ApiController]
     public class CategoryController : ControllerBase
@@ -17,6 +19,7 @@ namespace Controller.Controllers
             _categoryService = categoryService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -36,6 +39,7 @@ namespace Controller.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("{categoryId:int}", Name = "GetCategory")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]

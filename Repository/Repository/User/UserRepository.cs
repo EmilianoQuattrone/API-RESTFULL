@@ -38,21 +38,25 @@ namespace RepositoryPattern.Repository.User
                                           u => u.NameUser == user);
 
             if (userDB == null)
-                return false;
+                return true;
 
-            return true;
+            return false;
         }
 
         public async Task<UserResponseDto> Login(UserLoginDto userLoginDto)
         {
             string passwordEncrypt = Getmd5(userLoginDto.Password);
 
-            Models.Entities.User user = 
-            _applicationDbContext.Users.FirstOrDefault(u => u.NameUser.ToLower() ==
-                                                       userLoginDto.NameUser.ToLower()
-                                                       && u.Password == passwordEncrypt);
+            //Models.Entities.User user = 
+            //_applicationDbContext.Users.FirstOrDefault(u => u.NameUser.ToLower() ==
+            //                                           userLoginDto.NameUser.ToLower()
+            //                                           && u.Password == passwordEncrypt);
 
-            if(user == null)
+            Models.Entities.User user = _applicationDbContext.Users.FirstOrDefault(
+            u => u.NameUser.Trim().ToLower() == userLoginDto.NameUser.Trim().ToLower() && 
+            u.Password.Trim() == passwordEncrypt);
+
+            if (user == null)
             {
                 return new UserResponseDto()
                 {

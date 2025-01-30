@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Models.DTOs.Category;
 using Models.DTOs.Movie;
+using Models.DTOs.User;
 using Models.Entities;
 
 namespace MoviesMapper.Mappers
@@ -14,6 +15,8 @@ namespace MoviesMapper.Mappers
 
             CreateMap<Movie, MovieDto>().ReverseMap();
             CreateMap<Movie, CreateMovieDto>().ReverseMap();
+
+            CreateMap<User, UserDto>().ReverseMap();
         }
     }
 }

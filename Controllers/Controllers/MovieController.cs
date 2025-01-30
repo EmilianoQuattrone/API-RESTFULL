@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Movie;
@@ -8,6 +9,7 @@ using Service.IServices;
 
 namespace Controller.Controllers
 {
+    [Authorize]
     [Route("api/movies")]
     [ApiController]
     public class MovieController : ControllerBase
@@ -19,6 +21,7 @@ namespace Controller.Controllers
             _movieService = movieService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -36,6 +39,7 @@ namespace Controller.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("{movieId:int}", Name = "GetMovie")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
